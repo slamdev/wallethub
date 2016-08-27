@@ -68,6 +68,11 @@ public class CountBugsProcedureTest {
         try (InputStream is = CountBugsProcedureTest.class.getResourceAsStream("/database.properties")){
             properties.load(is);
         }
+        System.out.println(properties.getProperty("url"));
+        try (InputStream is = CountBugsProcedureTest.class.getClassLoader().getResourceAsStream("database.properties")){
+            properties.load(is);
+        }
+        System.out.println(properties.getProperty("url"));
         MysqlDataSource ds = new MysqlDataSource();
         ds.setUser(properties.getProperty("username"));
         ds.setPassword(properties.getProperty("password"));

@@ -2,10 +2,7 @@ package com.github.slamdev.wallethub;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.hamcrest.Matcher;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.skife.jdbi.v2.Batch;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
@@ -24,6 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
+@Ignore
 public class SplitProcedureTest {
 
     private static Handle handle;
