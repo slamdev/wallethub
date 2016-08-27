@@ -4,8 +4,7 @@ DROP FUNCTION IF EXISTS initcap$$
 
 CREATE FUNCTION initcap(string VARCHAR(255)) RETURNS VARCHAR(255)
   BEGIN
-    DECLARE _result VARCHAR(255);
-    SET _result = '';
+    DECLARE _result VARCHAR(255) DEFAULT '';
     SET string = lower(string);
     WHILE length(string) > 0 DO
       SET string = concat(upper(substring(string, 1, 1)), substring(string, 2));
