@@ -152,7 +152,7 @@ public class TopPhrasesTest {
     }
 
     private String out() {
-        return out.getLog().replaceAll("\r\n", "");
+        return out.getLog().replaceAll(lineSeparator(), "");
     }
 
     private String[] params(String... params) {

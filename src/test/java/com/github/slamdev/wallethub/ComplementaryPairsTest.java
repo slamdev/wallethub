@@ -6,6 +6,7 @@ import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.contrib.java.lang.system.SystemErrRule;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 
+import static java.lang.System.lineSeparator;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -83,7 +84,7 @@ public class ComplementaryPairsTest {
     }
 
     private String out() {
-        return out.getLog().replaceAll("\r\n", "");
+        return out.getLog().replaceAll(lineSeparator(), "");
     }
 
     private String[] params(String... params) {
