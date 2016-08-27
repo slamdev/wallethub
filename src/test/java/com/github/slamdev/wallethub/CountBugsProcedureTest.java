@@ -10,6 +10,7 @@ import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import static java.nio.file.Files.readAllBytes;
@@ -64,7 +65,9 @@ public class CountBugsProcedureTest {
     @BeforeClass
     public static void initDatabase() throws IOException {
         Properties properties = new Properties();
-        properties.load(CountBugsProcedureTest.class.getResourceAsStream("/database.properties"));
+        try (InputStream is = CountBugsProcedureTest.class.getResourceAsStream("/database.properties")){
+            properties.load(is);
+        }
         MysqlDataSource ds = new MysqlDataSource();
         ds.setUser(properties.getProperty("username"));
         ds.setPassword(properties.getProperty("password"));

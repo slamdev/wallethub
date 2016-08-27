@@ -11,6 +11,7 @@ import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
@@ -76,7 +77,9 @@ public class SplitProcedureTest {
     @BeforeClass
     public static void initDatabase() throws IOException {
         Properties properties = new Properties();
-        properties.load(CountBugsProcedureTest.class.getResourceAsStream("/database.properties"));
+        try (InputStream is = CountBugsProcedureTest.class.getResourceAsStream("/database.properties")){
+            properties.load(is);
+        }
         MysqlDataSource ds = new MysqlDataSource();
         ds.setUser(properties.getProperty("username"));
         ds.setPassword(properties.getProperty("password"));
