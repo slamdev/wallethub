@@ -2,7 +2,6 @@ package com.github.slamdev.wallethub;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.skife.jdbi.v2.Batch;
 import org.skife.jdbi.v2.DBI;
@@ -20,7 +19,6 @@ import static java.util.regex.Pattern.quote;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@Ignore
 public class InitcapFunctionTest {
 
     private static Handle handle;
