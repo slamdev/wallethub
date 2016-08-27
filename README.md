@@ -1,4 +1,4 @@
-# wallethub
+# wallethub [![Build Status](https://travis-ci.org/slamdev/wallethub.svg?branch=master)](https://travis-ci.org/slamdev/wallethub)
 ## SQL
 1. Write a query to rank order the following table in MySQL by votes, display the rank as one of the columns.
 ```
