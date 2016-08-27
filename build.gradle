@@ -20,7 +20,7 @@ sourceCompatibility = 1.8
 ext {
     databaseUrl = getenv('DATABASE_URL') ?: project.DATABASE_URL
     databaseUsername = getenv('DATABASE_USERNAME') ?: project.DATABASE_USERNAME
-    databasePassword = getenv('DATABASE_PASSWORD') ?: project.DATABASE_PASSWORD
+    databasePassword = getenv('DATABASE_PASSWORD') ?: project.hasProperty('DATABASE_PASSWORD') ? project.DATABASE_PASSWORD : ''
 }
 
 processTestResources {
