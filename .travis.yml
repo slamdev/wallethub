@@ -9,7 +9,4 @@ cache:
 services: mysql
 branches:
   only: master
-env:
-- DATABASE_URL=jdbc:mysql://localhost:3306/sys
-- DATABASE_USERNAME=root
-- DATABASE_PASSWORD=
+env: DATABASE_URL="jdbc:mysql://localhost:3306/sys" DATABASE_USERNAME="root" DATABASE_PASSWORD=""
