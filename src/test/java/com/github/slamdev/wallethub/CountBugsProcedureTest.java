@@ -78,7 +78,11 @@ public class CountBugsProcedureTest {
         ds.setPassword(properties.getProperty("password"));
         ds.setURL(properties.getProperty("url"));
         DBI dbi = new DBI(ds);
-        handle = dbi.open();
+        try {
+            handle = dbi.open();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         handle.execute("CREATE TABLE bugs(id INT, open_date DATE, close_date DATE, severity INT)");
         String query = new String(readAllBytes(get("src/main/sql/CountBugsProcedure.sql")));
         Batch batch = handle.createBatch();
