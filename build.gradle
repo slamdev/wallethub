@@ -1,0 +1,46 @@
+import static java.lang.System.getenv
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'findbugs'
+    id 'pmd'
+    id 'checkstyle'
+    id 'jacoco'
+}
+
+apply from: 'gradle/validation.gradle'
+apply from: 'gradle/coverage.gradle'
+
+group 'com.github.slamdev'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+ext {
+    databaseUrl = getenv('DATABASE_URL') ?: project.DATABASE_URL
+    databaseUsername = getenv('DATABASE_USERNAME') ?: project.DATABASE_USERNAME
+    databasePassword = getenv('DATABASE_PASSWORD') ?: project.DATABASE_PASSWORD
+}
+
+processTestResources {
+    filesMatching('**/database.properties') {
+        expand(project.properties)
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.github.stefanbirkner:system-rules:1.16.0'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    testCompile 'org.jdbi:jdbi:2.75'
+    testCompile 'mysql:mysql-connector-java:5.1.39'
+}
