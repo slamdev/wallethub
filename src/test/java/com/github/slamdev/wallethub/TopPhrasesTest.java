@@ -46,6 +46,31 @@ public class TopPhrasesTest {
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Test
+    public void should_return_empty_map_when_empty_file_passed() {
+        TopPhrases.main(params("1", PIPE, createTempFile("")));
+        assertThat(out(), is("{}"));
+    }
+
+    @Test
+    public void should_return_empty_map_when_no_words_greater_than_top() {
+        TopPhrases.main(params("2", PIPE, createTempFile("A", "B")));
+        assertThat(out(), is("{}"));
+    }
+
+    @Test
+    public void should_return_map_with_words_equals_or_greater_than_top() {
+        TopPhrases.main(params("2", PIPE, createTempFile(join("A", "B"), join("A", "B"), "A")));
+        assertThat(out(), is("{A=3, B=2}"));
+    }
+
+    @Test
+    @Ignore
+    public void should_process_huge_file_line_by_line() {
+        TopPhrases.main(params("100000", PIPE, createHugeTempFile()));
+        assertThat(out(), not(""));
+    }
+
+    @Test
     public void should_display_usage_message_when_not_enough_argument_passed() {
         exit.expectSystemExit();
         TopPhrases.main(params("a", "b"));
@@ -82,31 +107,6 @@ public class TopPhrasesTest {
     public void should_exit_app_with_no_zero_status_when_third_argument_not_existing_file() {
         exit.expectSystemExitWithStatus(1);
         TopPhrases.main(params("1", "b", "definitely_not_exists"));
-    }
-
-    @Test
-    public void should_return_empty_map_when_empty_file_passed() {
-        TopPhrases.main(params("1", PIPE, createTempFile("")));
-        assertThat(out(), is("{}"));
-    }
-
-    @Test
-    public void should_return_empty_map_when_no_words_greater_than_top() {
-        TopPhrases.main(params("2", PIPE, createTempFile("A", "B")));
-        assertThat(out(), is("{}"));
-    }
-
-    @Test
-    public void should_return_map_with_words_equals_or_greater_than_top() {
-        TopPhrases.main(params("2", PIPE, createTempFile(join("A", "B"), join("A", "B"), "A")));
-        assertThat(out(), is("{A=3, B=2}"));
-    }
-
-    @Test
-    @Ignore
-    public void should_process_huge_file_line_by_line() {
-        TopPhrases.main(params("100000", PIPE, createHugeTempFile()));
-        assertThat(out(), not(""));
     }
 
     private String join(String... content) {

@@ -1,15 +1,20 @@
 package com.github.slamdev.wallethub;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import static java.lang.Integer.parseInt;
+import static java.lang.System.*;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.lines;
+import static java.nio.file.Paths.get;
+import static java.util.regex.Pattern.compile;
+import static java.util.regex.Pattern.quote;
 import static java.util.stream.Collectors.*;
 
 public class TopPhrases {
@@ -22,27 +27,19 @@ public class TopPhrases {
         if (args.length < 3) {
             exitWithUsageMessage();
         }
-        int top = 0;
-        try {
-            top = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-            exitWithUsageMessage();
-        }
+        int top = toInt(args[0]);
         String pipe = args[1];
-        Path file = Paths.get(args[2]);
-        if (!Files.exists(file)) {
-            exitWithUsageMessage();
-        }
-        System.out.println(getTopPhrases(file, top, pipe));
+        Path file = toFile(args[2]);
+        out.println(getTopPhrases(file, top, pipe));
     }
 
     /**
      * Complexity: O(n)
      */
     private static Map<String, Long> getTopPhrases(Path file, int top, String pipe) {
-        Pattern pattern = Pattern.compile(Pattern.quote(pipe));
+        Pattern pattern = compile(quote(pipe));
         Map<String, Long> allPhrases;
-        try (Stream<String> lines = Files.lines(file)) {
+        try (Stream<String> lines = lines(file)) {
             allPhrases = lines
                     .flatMap(pattern::splitAsStream)
                     .map(String::trim)
@@ -58,9 +55,26 @@ public class TopPhrases {
                 .collect(toMap(Entry::getKey, Entry::getValue));
     }
 
+    private static int toInt(String string) {
+        try {
+            return parseInt(string);
+        } catch (NumberFormatException e) {
+            exitWithUsageMessage();
+        }
+        return 0;
+    }
+
+    private static Path toFile(String string) {
+        Path file = get(string);
+        if (!exists(file)) {
+            exitWithUsageMessage();
+        }
+        return file;
+    }
+
     private static void exitWithUsageMessage() {
-        System.err.println(USAGE_MESSAGE);
-        System.exit(1);
+        err.println(USAGE_MESSAGE);
+        exit(1);
     }
 
     private static <T> Predicate<T> not(Predicate<T> t) {
