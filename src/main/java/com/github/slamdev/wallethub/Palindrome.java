@@ -1,5 +1,6 @@
 package com.github.slamdev.wallethub;
 
+import static java.lang.System.*;
 import static java.util.stream.IntStream.range;
 
 public class Palindrome {
@@ -8,10 +9,10 @@ public class Palindrome {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            System.err.println(USAGE_MESSAGE);
-            System.exit(1);
+            err.println(USAGE_MESSAGE);
+            exit(1);
         }
-        System.out.println(isStringPalindrome(args[0]));
+        out.println(isStringPalindrome(args[0]));
     }
 
     /**
