@@ -22,32 +22,6 @@ public class ComplementaryPairsTest {
     public final SystemOutRule out = new SystemOutRule().enableLog();
 
     @Test
-    public void should_display_usage_message_when_not_enough_argument_passed() {
-        exit.expectSystemExit();
-        ComplementaryPairs.main(params("1"));
-        assertThat(error.getLog(), is(ComplementaryPairs.USAGE_MESSAGE));
-    }
-
-    @Test
-    public void should_exit_app_with_no_zero_status_when_not_enough_argument_passed() {
-        exit.expectSystemExitWithStatus(1);
-        ComplementaryPairs.main(params("1"));
-    }
-
-    @Test
-    public void should_display_usage_message_when_arguments_not_numbers() {
-        exit.expectSystemExit();
-        ComplementaryPairs.main(params("a", "b"));
-        assertThat(error.getLog(), is(ComplementaryPairs.USAGE_MESSAGE));
-    }
-
-    @Test
-    public void should_exit_app_with_no_zero_status_when_arguments_not_numbers() {
-        exit.expectSystemExitWithStatus(1);
-        ComplementaryPairs.main(params("a", "b"));
-    }
-
-    @Test
     public void should_return_zero_when_empty_array_passed() {
         ComplementaryPairs.main(params("1", ""));
         assertThat(out(), is("0"));
@@ -78,9 +52,41 @@ public class ComplementaryPairsTest {
     }
 
     @Test
+    public void should_return_one_for_both_negatives() {
+        ComplementaryPairs.main(params("-2", "-1, -1"));
+        assertThat(out(), is("1"));
+    }
+
+    @Test
     public void should_return_count_of_complementary_pairs() {
         ComplementaryPairs.main(new String[]{"4", "2, 5, -1, 6, 10, -2"});
         assertThat(out(), is("2"));
+    }
+
+    @Test
+    public void should_display_usage_message_when_not_enough_argument_passed() {
+        exit.expectSystemExit();
+        ComplementaryPairs.main(params("1"));
+        assertThat(error.getLog(), is(ComplementaryPairs.USAGE_MESSAGE));
+    }
+
+    @Test
+    public void should_exit_app_with_no_zero_status_when_not_enough_argument_passed() {
+        exit.expectSystemExitWithStatus(1);
+        ComplementaryPairs.main(params("1"));
+    }
+
+    @Test
+    public void should_display_usage_message_when_arguments_not_numbers() {
+        exit.expectSystemExit();
+        ComplementaryPairs.main(params("a", "b"));
+        assertThat(error.getLog(), is(ComplementaryPairs.USAGE_MESSAGE));
+    }
+
+    @Test
+    public void should_exit_app_with_no_zero_status_when_arguments_not_numbers() {
+        exit.expectSystemExitWithStatus(1);
+        ComplementaryPairs.main(params("a", "b"));
     }
 
     private String out() {
