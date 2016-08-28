@@ -28,7 +28,8 @@ public class ComplementaryPairs {
     }
 
     /**
-     * Complexity: O(n)
+     * Time complexity: O(n)
+     * Space complexity: O(n)
      */
     private static int countComplementaryPairs(int sum, int[] array) {
         if (array.length < 2) {

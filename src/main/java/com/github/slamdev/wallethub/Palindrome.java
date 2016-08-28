@@ -16,7 +16,8 @@ public class Palindrome {
     }
 
     /**
-     * Complexity: O(n)
+     * Time complexity: O(n)
+     * Space complexity: O(1)
      */
     private static boolean isStringPalindrome(String string) {
         return string.isEmpty() || range(0, string.length() / 2)

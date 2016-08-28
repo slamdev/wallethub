@@ -34,7 +34,8 @@ public class TopPhrases {
     }
 
     /**
-     * Complexity: O(n)
+     * Time complexity: O(n)
+     * Space complexity: O(n)
      */
     private static Map<String, Long> getTopPhrases(Path file, int top, String pipe) {
         Pattern pattern = compile(quote(pipe));
